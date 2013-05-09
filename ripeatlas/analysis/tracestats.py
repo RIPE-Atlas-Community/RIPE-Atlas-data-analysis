@@ -305,7 +305,7 @@ def parseTraceData(data):
 		    ip = packet['from']
 		    errorflag = packet.get('err')
 		    if errorflag:
-			ip += " !" + errorflag
+			ip += " !" + str(errorflag)
 		    if ip != lastip:
 			lastip = ip
 			if (ipstring == '* ') | (ipstring == '* * '):
