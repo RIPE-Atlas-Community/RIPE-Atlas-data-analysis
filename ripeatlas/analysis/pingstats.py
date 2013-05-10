@@ -262,28 +262,28 @@ class pingDestinationStats:
 		    print '2.5 percentile ("Minimum")'
 		    print "lowest 2.5 percentile RTT in all probes:%8.2fms"  % self.minimumRtts[0]
 	            print "2.5%% of probes had 2.5 percentile    <= %8.2fms" % self.minimumRtts[level025]
-	            print "25%% of probes had 2.5 percentile    .<= %8.2fms" % (self.minimumRtts[level250])
-	            print "50%% of probes had 2.5 percentile.    <= %8.2fms" % (self.minimumRtts[level500])
-	            print "75%% of probes had 2.5 percentile.    <= %8.2fms" % (self.minimumRtts[level750])
-	            print "97.5%% of probes had 2.5 percentile.  <= %8.2fms" % (self.minimumRtts[level975])
+	            print "25%% of probes had 2.5 percentile     <= %8.2fms" % (self.minimumRtts[level250])
+	            print "50%% of probes had 2.5 percentile     <= %8.2fms" % (self.minimumRtts[level500])
+	            print "75%% of probes had 2.5 percentile     <= %8.2fms" % (self.minimumRtts[level750])
+	            print "97.5%% of probes had 2.5 percentile   <= %8.2fms" % (self.minimumRtts[level975])
 		    print "highest 2.5 percentile in all probes    %8.2fms"  % (self.minimumRtts[numprobes-1])
 		    print
 		    print "Median"
 		    print "lowest median RTT in all probes     %9.2fms"  % self.medianRtts[0]
 		    print "2.5%% of probes had median RTT    <= %9.2fms" % self.medianRtts[level025]
-		    print "25%% of probes had median RTT    .<= %9.2fms" % (self.medianRtts[level250])
-		    print "50%% of probes had median RTT.    <= %9.2fms" % (self.medianRtts[level500])
-		    print "75%% of probes had median RTT.    <= %9.2fms" % (self.medianRtts[level750])
-		    print "97.5%% of probes had median RTT.  <= %9.2fms" % (self.medianRtts[level975])
+		    print "25%% of probes had median RTT     <= %9.2fms" % (self.medianRtts[level250])
+		    print "50%% of probes had median RTT     <= %9.2fms" % (self.medianRtts[level500])
+		    print "75%% of probes had median RTT     <= %9.2fms" % (self.medianRtts[level750])
+		    print "97.5%% of probes had median RTT   <= %9.2fms" % (self.medianRtts[level975])
 		    print "highest median RTT in all probes    %9.2fms"  % (self.medianRtts[numprobes-1])
 		    print
 		    print '97.5 percentile ("Maximum")'
 		    print "lowest 97.5 percentile RTT in all probes:%8.2fms"  % self.maximumRtts[0]
 	            print "2.5%% of probes had 97.5 percentile    <= %8.2fms" % self.maximumRtts[level025]
-	            print "25%% of probes had 97.5 percentile    .<= %8.2fms" % (self.maximumRtts[level250])
-	            print "50%% of probes had 97.5 percentile.    <= %8.2fms" % (self.maximumRtts[level500])
-	            print "75%% of probes had 97.5 percentile.    <= %8.2fms" % (self.maximumRtts[level750])
-	            print "97.5%% of probes had 97.5 percentile.  <= %8.2fms" % (self.maximumRtts[level975])
+	            print "25%% of probes had 97.5 percentile     <= %8.2fms" % (self.maximumRtts[level250])
+	            print "50%% of probes had 97.5 percentile     <= %8.2fms" % (self.maximumRtts[level500])
+	            print "75%% of probes had 97.5 percentile     <= %8.2fms" % (self.maximumRtts[level750])
+	            print "97.5%% of probes had 97.5 percentile   <= %8.2fms" % (self.maximumRtts[level975])
 		    print "highest 97.5 percentile in all probes    %8.2fms"  % (self.maximumRtts[numprobes-1])
         print
 	print
