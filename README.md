@@ -1,6 +1,15 @@
 RIPE-Atlas-data-analysis
 ========================
 
+Overview
+========
+This package contains several components, notably:
+
+    * atlasreport.py - the entry point for reporting statistics from RIPE Atlas data 
+    * decodeabuf.py - a tool to decode the buffers returned in DNS queries
+    * dnsReport.pl - a perl script which reports on DNS measurement results
+    * dnsReport.sh - a shell script combining the two steps above, called by atlasreport.py 
+    * a supporting Python class library where the real work is done
 
 Licence
 =======
@@ -10,9 +19,10 @@ This package is distributed under the terms of the LGPL v3 or later:
 
 Installation
 ============
+The source code can be downloaded as a zip file rom https://github.com/RIPE-Atlas-Community/RIPE-Atlas-data-analysis/archive/master.zip 
 
 You can install the package system wide by running the following command in 
-the source directory::
+the unpacked source directory::
 
     $ python setup.py install
 
@@ -24,15 +34,12 @@ You can always upgrade to the latest release with this command::
 
     $ easy_install -U https://github.com/RIPE-Atlas-Community/RIPE-Atlas-data-analysis/tarball/master
 
-Overview
-========
-This package contains several components, notably:
 
-    * the main atlasreport.py tool reporting statistics from RIPE Atlas data 
-    * the dnsReport.pl perl script to generate reports for DNS measurements
-    * the decodeabuf.py tool to decode the buffers returned in DNS queries
-    * the dnsReport.sh shell script which combines the two above in one pipeline
-    * a supporting Python class library where the real work is done
+Note that depending on the permissions you have on your system, the easy-install method may require set-up of a python virtual environment.
+
+Dependencies
+============
+Dependencies in the python scripts are resolved at installation time by the setupu tools. The Perl script requires a JSON module to be installed. If it is not on your system, you can find it on CPAN, http://search.cpan.org/dist/JSON/
 
 
 Disclaimer
