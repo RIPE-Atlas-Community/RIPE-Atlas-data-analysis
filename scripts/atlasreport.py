@@ -15,6 +15,7 @@ import subprocess
 from ripeatlas.analysis.msmstats import measurementStats
 from ripeatlas.analysis.pingstats import pingStatistics
 from ripeatlas.analysis.tracestats import traceStatistics
+from ripeatlas.analysis.dnsstats import dnsStatistics
 
 
 def processRecord (line,results,args):
@@ -61,10 +62,7 @@ def processRecord (line,results,args):
 	elif (type == 'traceroute'):
 	    msmresults = traceStatistics(msm_id,type,dst_name,args.maxdest)
 	elif (type == 'dns'):
-	    #msmresults = dnsStatistics(msm_id,type)
-
-	    # collect generic stuff via measurementStats
-	    msmresults = measurementStats(msm_id,type,dst_name,args.maxdest)
+	    msmresults = dnsStatistics(msm_id,type,dst_name,args.maxdest)
 
 	    # temporary: also feed the line to seperate dns reporting script 
 	    # (this is to be integrated into the general analysis & reporting framework)
