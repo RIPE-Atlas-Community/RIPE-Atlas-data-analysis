@@ -216,13 +216,20 @@ class pingDestinationStats:
 
 	if (self.packets_sent>0):
     	    lost = 100 * (self.packets_sent - self.packets_rcvd)/float(self.packets_sent)
-	    lost = "%.2%%" % lost
+	    lost = "%.2f%%" % lost
 	else:
-    	    lost = "N/A"
+    	    lost = "NA"
 	    
 	if (detail==0):
-	    #minimal view
-	    print "sent/received/loss/median %d/%d/%s/%.2fms" % (self.packets_sent,self.packets_rcvd,lost,self.median)
+	    #minimal view; report median of the medians
+	    if len(self.medianRtts) > 0:
+	        numprobes = len(self.medianRtts) 
+	        level500 = int(numprobes * 0.5)
+                median = self.medianRtts[level500]
+		median = "%.2fms" % median
+	    else:
+		median = "NA"
+	    print "sent/received/loss/median %d/%d/%s/%s" % (self.packets_sent,self.packets_rcvd,lost,median)
 
 	else:
 	    print "Timeinterval:" , time.strftime("%Y-%m-%dT%H:%MZ",time.gmtime(self.starttime)), " - ", time.strftime("%Y-%m-%dT%H:%MZ",time.gmtime(self.endtime))
