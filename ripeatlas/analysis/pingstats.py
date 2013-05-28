@@ -214,77 +214,78 @@ class pingDestinationStats:
 
 	nprobes = len(self.probeReport.keys())
 
+	if (self.packets_sent>0):
+    	    lost = 100 * (self.packets_sent - self.packets_rcvd)/float(self.packets_sent)
+	    lost = "%.2%%" % lost
+	else:
+    	    lost = "N/A"
+	    
 	if (detail==0):
 	    #minimal view
-	    print "sent/received/loss/median %d/%d/%.2f%%/%.2fms" % (self.packets_sent,self.packets_rcvd,lost,self.median)
+	    print "sent/received/loss/median %d/%d/%s/%.2fms" % (self.packets_sent,self.packets_rcvd,lost,self.median)
 
 	else:
-		print "Timeinterval:" , time.strftime("%Y-%m-%dT%H:%MZ",time.gmtime(self.starttime)), " - ", time.strftime("%Y-%m-%dT%H:%MZ",time.gmtime(self.endtime))
-		print "Packets sent:", self.packets_sent
-		print "Packets received:", self.packets_rcvd
+    	print "Timeinterval:" , time.strftime("%Y-%m-%dT%H:%MZ",time.gmtime(self.starttime)), " - ", time.strftime("%Y-%m-%dT%H:%MZ",time.gmtime(self.endtime))
+    	print "Packets sent:", self.packets_sent
+    	print "Packets received:", self.packets_rcvd
 
-		if (self.packets_sent>0):
-	    	    lost = 100 * (self.packets_sent - self.packets_rcvd)/float(self.packets_sent)
-		    print "Overall loss rate: %.2f%%" % lost
-		else:
-	    	    lost = "-"
-		    print "Overall loss rate: %2s" % lost
-		print
-		print "Total probes measuring: %6d" % nprobes
-	        print "Probes with 100%% errors:%6d" % self.allerrors
-		if len(self.errorMsgs)>0:
-		    print 'Total errors on probes: %6d' % sum(self.errorMsgs.values())
-		    print 'Most common error:"%s (%dx)"' % sorted(self.errorMsgs.items(),key=lambda x: x[1], reverse=True)[0]
-		
-		if (nprobes > 1):
-		    print
-		    print "Probes with no packets lost:   %6d" % self.lossless
-		    print "Probes with 0%%-5%% loss:        %6d" % self.loss0
-		    print "Probes with 5%%-20%% loss:       %6d" % self.loss5
-		    print "Probes with 20%%-40%% loss:      %6d" % self.loss20
-		    print "Probes with 40%%-60%% loss:      %6d" % self.loss40
-		    print "Probes with 60%%-80%% loss:      %6d" % self.loss60
-		    print "Probes with 80%%-100%% loss:     %6d" % self.loss80
-		    print "Probes with 100%% loss:         %6d" % self.loss100
-		    print "Probes not sending any packets:%6d" % self.nodata
+    	print "Overall loss rate: %s" % lost
+    	print
+    	print "Total probes measuring: %6d" % nprobes
+            print "Probes with 100%% errors:%6d" % self.allerrors
+    	if len(self.errorMsgs)>0:
+    	    print 'Total errors on probes: %6d' % sum(self.errorMsgs.values())
+    	    print 'Most common error:"%s (%dx)"' % sorted(self.errorMsgs.items(),key=lambda x: x[1], reverse=True)[0]
+    	
+    	if (nprobes > 1):
+    	    print
+    	    print "Probes with no packets lost:   %6d" % self.lossless
+    	    print "Probes with 0%%-5%% loss:        %6d" % self.loss0
+    	    print "Probes with 5%%-20%% loss:       %6d" % self.loss5
+    	    print "Probes with 20%%-40%% loss:      %6d" % self.loss20
+    	    print "Probes with 40%%-60%% loss:      %6d" % self.loss40
+    	    print "Probes with 60%%-80%% loss:      %6d" % self.loss60
+    	    print "Probes with 80%%-100%% loss:     %6d" % self.loss80
+    	    print "Probes with 100%% loss:         %6d" % self.loss100
+    	    print "Probes not sending any packets:%6d" % self.nodata
 
-		print 
-		if len(self.medianRtts) > 0:
-		    numprobes = len(self.medianRtts) 
-		    level025 = int(numprobes * 0.025)
-		    level250 = int(numprobes * 0.25)
-		    level500 = int(numprobes * 0.5)
-		    level750 = int(numprobes * 0.75)
-		    level975 = int(numprobes * 0.975)
-		    print "RTT distributions:"
-		    print "-----------------\n"
+    	print 
+    	if len(self.medianRtts) > 0:
+    	    numprobes = len(self.medianRtts) 
+    	    level025 = int(numprobes * 0.025)
+    	    level250 = int(numprobes * 0.25)
+    	    level500 = int(numprobes * 0.5)
+    	    level750 = int(numprobes * 0.75)
+    	    level975 = int(numprobes * 0.975)
+    	    print "RTT distributions:"
+    	    print "-----------------\n"
 
-		    print '2.5 percentile ("Minimum")'
-		    print "lowest 2.5 percentile RTT in all probes:%8.2fms"  % self.minimumRtts[0]
-	            print "2.5%% of probes had 2.5 percentile    <= %8.2fms" % self.minimumRtts[level025]
-	            print "25%% of probes had 2.5 percentile     <= %8.2fms" % (self.minimumRtts[level250])
-	            print "50%% of probes had 2.5 percentile     <= %8.2fms" % (self.minimumRtts[level500])
-	            print "75%% of probes had 2.5 percentile     <= %8.2fms" % (self.minimumRtts[level750])
-	            print "97.5%% of probes had 2.5 percentile   <= %8.2fms" % (self.minimumRtts[level975])
-		    print "highest 2.5 percentile in all probes    %8.2fms"  % (self.minimumRtts[numprobes-1])
-		    print
-		    print "Median"
-		    print "lowest median RTT in all probes     %9.2fms"  % self.medianRtts[0]
-		    print "2.5%% of probes had median RTT    <= %9.2fms" % self.medianRtts[level025]
-		    print "25%% of probes had median RTT     <= %9.2fms" % (self.medianRtts[level250])
-		    print "50%% of probes had median RTT     <= %9.2fms" % (self.medianRtts[level500])
-		    print "75%% of probes had median RTT     <= %9.2fms" % (self.medianRtts[level750])
-		    print "97.5%% of probes had median RTT   <= %9.2fms" % (self.medianRtts[level975])
-		    print "highest median RTT in all probes    %9.2fms"  % (self.medianRtts[numprobes-1])
-		    print
-		    print '97.5 percentile ("Maximum")'
-		    print "lowest 97.5 percentile RTT in all probes:%8.2fms"  % self.maximumRtts[0]
-	            print "2.5%% of probes had 97.5 percentile    <= %8.2fms" % self.maximumRtts[level025]
-	            print "25%% of probes had 97.5 percentile     <= %8.2fms" % (self.maximumRtts[level250])
-	            print "50%% of probes had 97.5 percentile     <= %8.2fms" % (self.maximumRtts[level500])
-	            print "75%% of probes had 97.5 percentile     <= %8.2fms" % (self.maximumRtts[level750])
-	            print "97.5%% of probes had 97.5 percentile   <= %8.2fms" % (self.maximumRtts[level975])
-		    print "highest 97.5 percentile in all probes    %8.2fms"  % (self.maximumRtts[numprobes-1])
+    	    print '2.5 percentile ("Minimum")'
+    	    print "lowest 2.5 percentile RTT in all probes:%8.2fms"  % self.minimumRtts[0]
+            print "2.5%% of probes had 2.5 percentile    <= %8.2fms" % self.minimumRtts[level025]
+            print "25%% of probes had 2.5 percentile     <= %8.2fms" % (self.minimumRtts[level250])
+            print "50%% of probes had 2.5 percentile     <= %8.2fms" % (self.minimumRtts[level500])
+            print "75%% of probes had 2.5 percentile     <= %8.2fms" % (self.minimumRtts[level750])
+            print "97.5%% of probes had 2.5 percentile   <= %8.2fms" % (self.minimumRtts[level975])
+    	    print "highest 2.5 percentile in all probes    %8.2fms"  % (self.minimumRtts[numprobes-1])
+    	    print
+    	    print "Median"
+    	    print "lowest median RTT in all probes     %9.2fms"  % self.medianRtts[0]
+    	    print "2.5%% of probes had median RTT    <= %9.2fms" % self.medianRtts[level025]
+    	    print "25%% of probes had median RTT     <= %9.2fms" % (self.medianRtts[level250])
+    	    print "50%% of probes had median RTT     <= %9.2fms" % (self.medianRtts[level500])
+    	    print "75%% of probes had median RTT     <= %9.2fms" % (self.medianRtts[level750])
+    	    print "97.5%% of probes had median RTT   <= %9.2fms" % (self.medianRtts[level975])
+    	    print "highest median RTT in all probes    %9.2fms"  % (self.medianRtts[numprobes-1])
+    	    print
+    	    print '97.5 percentile ("Maximum")'
+    	    print "lowest 97.5 percentile RTT in all probes:%8.2fms"  % self.maximumRtts[0]
+            print "2.5%% of probes had 97.5 percentile    <= %8.2fms" % self.maximumRtts[level025]
+            print "25%% of probes had 97.5 percentile     <= %8.2fms" % (self.maximumRtts[level250])
+            print "50%% of probes had 97.5 percentile     <= %8.2fms" % (self.maximumRtts[level500])
+            print "75%% of probes had 97.5 percentile     <= %8.2fms" % (self.maximumRtts[level750])
+            print "97.5%% of probes had 97.5 percentile   <= %8.2fms" % (self.maximumRtts[level975])
+    	    print "highest 97.5 percentile in all probes    %8.2fms"  % (self.maximumRtts[numprobes-1])
         print
 	print
 
@@ -299,7 +300,7 @@ class probePingResults(probeResults):
     	self.probe_id = probe_id
 	self.msm_id = msm_id
 	self.dst_addr = dst_addr
-        self.measurements =0
+        self.samples =0
     	self.packets_sent = 0
     	self.packets_rcvd = 0
     	self.packets_dup = 0
@@ -338,7 +339,7 @@ class probePingResults(probeResults):
 	the possible fields found in 'data' dictionary
         """
 
-	self.measurements += 1
+	self.samples += 1
 	self.packets_sent += data['sent']
 	self.packets_dup += data['dup']
 	self.packets_rcvd += data['rcvd']
@@ -361,7 +362,7 @@ class probePingResults(probeResults):
 	main use case is collecting aggregate stats, not specific to one target IP
 	"""
 
-	self.measurements += source.measurements
+	self.samples += source.samples
 	self.packets_sent += source.packets_sent
 	self.packets_dup += source.packets_dup
 	self.packets_rcvd += source.packets_rcvd
