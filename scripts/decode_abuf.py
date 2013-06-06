@@ -201,7 +201,7 @@ def do_rr(buf, offset):
 		edns0['Version']= (res[2] and 0x0f00) >> 16
                 edns0['Z']= (res[2] and 0x00ff)
                 edns0['Type']= 'OPT'
- 		edns0['Option']= []
+ 		edns0['Option']= {}
                 edns0['Name']= name
 		
 		# EDNS0 options
