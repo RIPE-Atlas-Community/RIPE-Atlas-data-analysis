@@ -144,7 +144,7 @@ def do_header(buf, offset):
 	hdr['RA']= not not(res[1] & RA)
 	hdr['Z']=  not not(res[1] & Z)
 	hdr['AD']=  not not(res[1] & AD)
-	hdr['CD']=  not not(res[1] & AD)
+	hdr['CD']=  not not(res[1] & CD)
 	hdr['ReturnCode']= rcode_to_text((res[1] & RCODE_mask) >> RCODE_shift)
 	hdr['QDCOUNT']= res[2]
 	hdr['ANCOUNT']= res[3]
