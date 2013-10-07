@@ -130,8 +130,9 @@ def do_header(buf, offset):
 	TC=		0x0200
 	RD=		0x0100
 	RA=		0x0080
-	Z_mask=		0x0070
-	Z_shift=	4
+	Z=		0x0040
+	AD=		0x0020
+	CD=		0x0010
 	RCODE_mask=	0x000F
 	RCODE_shift=	0
 
@@ -141,7 +142,9 @@ def do_header(buf, offset):
 	hdr['TC']= not not(res[1] & TC)
 	hdr['RD']= not not(res[1] & RD)
 	hdr['RA']= not not(res[1] & RA)
-	hdr['Z']= (res[1] & Z_mask) >> Z_shift
+	hdr['Z']=  not not(res[1] & Z)
+	hdr['AD']=  not not(res[1] & AD)
+	hdr['CD']=  not not(res[1] & CD)
 	hdr['ReturnCode']= rcode_to_text((res[1] & RCODE_mask) >> RCODE_shift)
 	hdr['QDCOUNT']= res[2]
 	hdr['ANCOUNT']= res[3]
