@@ -6,7 +6,7 @@ Overview
 This package contains several components, notably:
 
     * atlasreport.py - the entry point for reporting statistics from RIPE Atlas data 
-    * decodeabuf.py - a tool to decode the buffers returned in DNS queries
+    * decode_abuf.py - a tool to decode the buffers returned in DNS queries
     * dnsReport.pl - a perl script which reports on DNS measurement results
     * dnsReport.sh - a shell script combining the two steps above, called by atlasreport.py 
     * a supporting Python class library where the real work is done
